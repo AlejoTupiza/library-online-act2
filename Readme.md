@@ -1,6 +1,7 @@
 # Microservices Library
 
-Este repositorio contiene un proyecto de microservicios utilizando Spring Boot. La arquitectura está compuesta por los siguientes servicios:
+Este repositorio contiene un proyecto de microservicios utilizando Spring Boot. La arquitectura está compuesta por los
+siguientes servicios:
 
 - **Eureka Server**: Para el registro y descubrimiento de servicios.
 - **Gateway**: Para el enrutamiento de peticiones.
@@ -12,6 +13,8 @@ Este repositorio contiene un proyecto de microservicios utilizando Spring Boot. 
 - Java 21
 - Maven 3.6+
 - PostgreSQL
+
+
 
 ### Instrucciones de Ejecución
 
