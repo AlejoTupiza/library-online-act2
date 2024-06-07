@@ -14,9 +14,12 @@ siguientes servicios:
 - Maven 3.6+
 - PostgreSQL
 
+
+
 ### Instrucciones de Ejecución
 
 1. Clona el repositorio:
 
 git clone https://github.com/AlejoTupiza/library-online-act2.git
 cd library-online-act2
+# prueba desde IntelliJ
