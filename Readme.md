@@ -22,4 +22,4 @@ siguientes servicios:
 
 git clone https://github.com/AlejoTupiza/library-online-act2.git
 cd library-online-act2
-# prueba 
+# prueba desde IntelliJ
