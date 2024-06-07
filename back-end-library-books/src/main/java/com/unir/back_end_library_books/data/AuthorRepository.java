@@ -31,7 +31,7 @@ public class AuthorRepository {
         repository.delete(author);
     }
 
-    public List<Author> search(String name, String country, String description, Boolean visible) {
+    public List<Author> search(String name, String last_name) {
         SearchCriteria<Author> spec = new SearchCriteria<>();
         if (StringUtils.isNotBlank(name)) {
             spec.add(new SearchStatement("name", name, SearchOperation.MATCH));

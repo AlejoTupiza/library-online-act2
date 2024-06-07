@@ -27,7 +27,7 @@ public class AuthorServiceImpl {
     private ObjectMapper objectMapper;
 
     @Override
-    public List<Author> getAuthor(String name, String last_name) {
+    public List<Author> getAuthors(String name, String last_name) {
 
         if (StringUtils.hasLength(name) || StringUtils.hasLength(last_name))
                  {

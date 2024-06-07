@@ -14,7 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "Author")
+@Table(name = "author")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -31,4 +31,10 @@ public class Author {
 
     @Column(name = "last_name", unique = true)
     private String last_name;
+
+    public void update(AuthorDto productDto) {
+        this.name = AuthorDto.getName();
+        this.last_name = AuthorDto.getLastname();
+
+    }
 }
