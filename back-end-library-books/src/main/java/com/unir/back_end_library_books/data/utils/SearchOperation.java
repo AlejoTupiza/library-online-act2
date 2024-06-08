@@ -1,6 +1,6 @@
 package com.unir.back_end_library_books.data.utils;
 
-public class SearchOperation {
+public enum SearchOperation {
     GREATER_THAN,
     LESS_THAN,
     GREATER_THAN_EQUAL,

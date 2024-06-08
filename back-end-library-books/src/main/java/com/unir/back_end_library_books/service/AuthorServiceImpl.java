@@ -18,7 +18,7 @@ import com.unir.back_end_library_books.model.pojo.Author;
 import com.unir.back_end_library_books.model.request.CreateAuthorRequest;
 @Service
 @Slf4j
-public class AuthorServiceImpl {
+public class AuthorServiceImpl implements AuthorService{
 
     @Autowired
     private AuthorRepository repository;
@@ -34,7 +34,7 @@ public class AuthorServiceImpl {
             return repository.search(name,last_name);
         }
 
-        List<Author> author = repository.getAuthor();
+        List<Author> author = repository.getAuthors();
         return author.isEmpty() ? null : author;
     }
 
@@ -61,10 +61,9 @@ public class AuthorServiceImpl {
 
         //Otra opcion: Jakarta Validation: https://www.baeldung.com/java-validation
         if (request != null && StringUtils.hasLength(request.getName().trim())
-                && StringUtils.hasLength(request.getLast_name().trim())
-                {
+                && StringUtils.hasLength(request.getLast_name().trim())) {
 
-                    Author author = Author.builder().name(request.getName()).description(request.getDescription()).build();
+                    Author author = Author.builder().name(request.getName()).last_name(request.getLast_name()).build();
 
             return repository.save(author);
         } else {
@@ -94,7 +93,7 @@ public class AuthorServiceImpl {
     }
 
     @Override
-    public Author updateAuhtor(String authorId, AuthorDto updateRequest) {
+    public Author updateAuthor(String authorId, AuthorDto updateRequest) {
         Author author = repository.getById(Long.valueOf(authorId));
         if (author != null) {
             author.update(updateRequest);
