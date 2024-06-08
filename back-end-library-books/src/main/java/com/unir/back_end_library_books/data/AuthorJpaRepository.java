@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 interface AuthorJpaRepository extends JpaRepository<Author, Long>, JpaSpecificationExecutor<Author> {
     List<Author> findByName(String name);
 
-    List<Author> findByLastname(String last_name);
+
 
 }
