@@ -14,21 +14,28 @@ import lombok.*;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "isbn", unique = true)
-    private int isbn;
-    @Column(name = "title", unique = true)
+
+    @Column(name = "isbn", unique = true, nullable = false)
+    private long isbn;
+
+    @Column(name = "title", unique = true, nullable = false, length = 128)
     private String title;
+
     @Column(name = "year_publication")
     private int yearPublication;
+
     @Column(name = "stock")
     private int stock;
-    @Column(name = "imgBook")
+
+    @Column(name = "img_book", length = 255)
     private String imgBook;
-    @Column(name = "synopsis")
+
+    @Column(name = "synopsis", columnDefinition = "TEXT")
     private String synopsis;
-    @Column(name = "criticism")
+
+    @Column(name = "criticism", columnDefinition = "TEXT")
     private String criticism;
 
     @ManyToOne
