@@ -52,4 +52,138 @@ public class AuthorController {
         }
 
     }
+
+
+    @GetMapping("/authors/{authorId}")
+    @Operation(
+            operationId = "Obtener un autor",
+            description = "Operacion de lectura",
+            summary = "Se devuelve un autor a partir de su identificador.")
+    @ApiResponse(
+            responseCode = "200",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Author.class)))
+    @ApiResponse(
+            responseCode = "404",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
+            description = "No se ha encontrado el autor con el identificador indicado.")
+    public ResponseEntity<Author> getProduct(@PathVariable String authorId) {
+
+        log.info("Request received for author {}", authorId);
+        Author author = service.getAuthor(authorId);
+
+        if (author != null) {
+            return ResponseEntity.ok(author);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @DeleteMapping("/authors/{authorId}")
+    @Operation(
+            operationId = "Eliminar un autor",
+            description = "Operacion de escritura",
+            summary = "Se elimina un autor a partir de su identificador.")
+    @ApiResponse(
+            responseCode = "200",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)))
+    @ApiResponse(
+            responseCode = "404",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
+            description = "No se ha encontrado el autor con el identificador indicado.")
+    public ResponseEntity<Void> deleteAuthor(@PathVariable String authorId) {
+
+        Boolean removed = service.removeAuthor(authorId);
+
+        if (Boolean.TRUE.equals(removed)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @PostMapping("/authors")
+    @Operation(
+            operationId = "Insertar un autor",
+            description = "Operacion de escritura",
+            summary = "Se crea un autor a partir de sus datos.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos del autor a crear.",
+                    required = true,
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = CreateAuthorRequest.class))))
+    @ApiResponse(
+            responseCode = "201",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Author.class)))
+    @ApiResponse(
+            responseCode = "400",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
+            description = "Datos incorrectos introducidos.")
+    @ApiResponse(
+            responseCode = "404",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
+            description = "No se ha encontrado el autor con el identificador indicado.")
+    public ResponseEntity<Author> addAuthor(@RequestBody CreateAuthorRequest request) {
+
+        Author createdAuthor = service.createAuthor(request);
+
+        if (createdAuthor != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdAuthor);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PatchMapping("/authors/{authorId}")
+    @Operation(
+            operationId = "Modificar parcialmente un autor",
+            description = "RFC 7386. Operacion de escritura",
+            summary = "RFC 7386. Se modifica parcialmente un autor.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos del autor a crear.",
+                    required = true,
+                    content = @Content(mediaType = "application/merge-patch+json", schema = @Schema(implementation = String.class))))
+    @ApiResponse(
+            responseCode = "200",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Author.class)))
+    @ApiResponse(
+            responseCode = "400",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
+            description = "Autor inválido o datos incorrectos introducidos.")
+    public ResponseEntity<Author> patchProduct(@PathVariable String authorId, @RequestBody String patchBody) {
+
+        Author patched = service.updateAuthor(authorId, patchBody);
+        if (patched != null) {
+            return ResponseEntity.ok(patched);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+    @PutMapping("/authors/{authorId}")
+    @Operation(
+            operationId = "Modificar totalmente un autor",
+            description = "Operacion de escritura",
+            summary = "Se modifica totalmente un autor.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Datos del autor a actualizar.",
+                    required = true,
+                    content = @Content(mediaType = "application/merge-patch+json", schema = @Schema(implementation = AuthorDto.class))))
+    @ApiResponse(
+            responseCode = "200",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Author.class)))
+    @ApiResponse(
+            responseCode = "404",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
+            description = "Autor no encontrado.")
+    public ResponseEntity<Author> updateAuthor(@PathVariable String authortId, @RequestBody AuthorDto body) {
+
+        Author updated = service.updateAuthor(authortId, body);
+        if (updated != null) {
+            return ResponseEntity.ok(updated);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
