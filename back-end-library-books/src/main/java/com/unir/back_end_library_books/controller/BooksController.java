@@ -22,7 +22,7 @@ public class BooksController {
     private final BooksService service;
 
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> getAllBooks(
+    public ResponseEntity<List<Book>> getBooks(
             @RequestHeader Map<String, String> headers,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String isbn,

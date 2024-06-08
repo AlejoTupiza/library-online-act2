@@ -30,5 +30,4 @@ public class BookRepository {
 //        }
         return repository.findAll(spec);
     }
-
 }
