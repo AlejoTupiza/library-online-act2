@@ -26,10 +26,10 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name", unique = false)
     private String name;
 
-    @Column(name = "last_name", unique = true)
+    @Column(name = "last_name", unique = false)
     private String last_name;
 
     public void update(AuthorDto authorDto) {
