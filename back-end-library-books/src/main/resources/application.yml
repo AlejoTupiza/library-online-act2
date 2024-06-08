@@ -2,7 +2,7 @@ spring:
   application:
     name: ms-library-books
   datasource:
-    url: jdbc:postgresql://localhost:5432/LibraryDB
+    url: jdbc:postgresql://localhost:5432/librarydb
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
