@@ -1,6 +1,7 @@
 package com.unir.back_end_library_books.controller;
 
 import com.unir.back_end_library_books.model.pojo.Book;
+import com.unir.back_end_library_books.model.pojo.BookDto;
 import com.unir.back_end_library_books.model.request.CreateBookRequest;
 import com.unir.back_end_library_books.service.BooksService;
 import lombok.RequiredArgsConstructor;
@@ -85,6 +86,18 @@ public class BooksController {
 
         if (patched != null) {
             return ResponseEntity.ok(patched);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/books/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable String id, @RequestBody BookDto body) {
+
+        Book updatedBook = service.updateBook(id, body);
+
+        if (updatedBook != null) {
+            return ResponseEntity.ok(updatedBook);
         } else {
             return ResponseEntity.badRequest().build();
         }
