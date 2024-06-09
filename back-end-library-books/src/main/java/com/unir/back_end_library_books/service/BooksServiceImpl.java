@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
+import com.unir.back_end_library_books.data.AuthorRepository;
 import com.unir.back_end_library_books.data.BookRepository;
+import com.unir.back_end_library_books.model.pojo.Author;
 import com.unir.back_end_library_books.model.pojo.Book;
 import com.unir.back_end_library_books.model.pojo.BookDto;
 import com.unir.back_end_library_books.model.request.CreateBookRequest;
@@ -22,6 +24,9 @@ public class BooksServiceImpl implements BooksService {
 
     @Autowired
     private BookRepository repository;
+
+    @Autowired
+    private AuthorRepository authorRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -64,6 +69,9 @@ public class BooksServiceImpl implements BooksService {
                 StringUtils.hasLength(request.getCriticism()) &&
                 request.getAuthor() != null &&
                 request.getGender() != null) {
+
+            Author author = authorRepository.getById(request.getAuthor().getId());
+
             Book book = Book.builder()
                     .isbn(request.getIsbn())
                     .title(request.getTitle())
@@ -72,7 +80,7 @@ public class BooksServiceImpl implements BooksService {
                     .imgBook(request.getImgBook())
                     .synopsis(request.getSynopsis())
                     .criticism(request.getCriticism())
-                    .author(request.getAuthor())
+                    .author(author)
                     .gender(request.getGender())
                     .build();
             return repository.save(book);
@@ -89,6 +97,17 @@ public class BooksServiceImpl implements BooksService {
                 JsonMergePatch jsonMergePatch = JsonMergePatch.fromJson(objectMapper.readTree(request));
                 JsonNode target = jsonMergePatch.apply(objectMapper.readTree(objectMapper.writeValueAsString(book)));
                 Book patched = objectMapper.treeToValue(target, Book.class);
+
+                if (patched.getAuthor() != null && patched.getAuthor().getId() != null) {
+                    Author author = authorRepository.getById(patched.getAuthor().getId());
+                    patched.setAuthor(author);
+                }
+
+//                if (patched.getGender() != null && patched.getGender().getId() != null) {
+//                    Gender gender = genderRepository.getById(patched.getGender().getId());
+//                    patched.setGender(gender);
+//                }
+
                 repository.save(patched);
                 return patched;
             } catch (JsonProcessingException | JsonPatchException e) {
@@ -104,7 +123,19 @@ public class BooksServiceImpl implements BooksService {
     public Book updateBook(String id, BookDto updateRequest) {
         Book book = repository.getById(Long.valueOf(id));
         if (book != null) {
+
             book.update(updateRequest);
+
+            if (updateRequest.getAuthor() != null && updateRequest.getAuthor().getId() != null) {
+                Author author = authorRepository.getById(updateRequest.getAuthor().getId());
+                book.setAuthor(author);
+            }
+
+//            if (updateRequest.getGender() != null && updateRequest.getGender().getId() != null) {
+//                Gender gender = genderRepository.getById(updateRequest.getGender().getId());
+//                book.setGender(gender);
+//            }
+
             repository.save(book);
             return book;
         } else {
