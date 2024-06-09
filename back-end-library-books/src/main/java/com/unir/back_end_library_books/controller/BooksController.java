@@ -5,10 +5,7 @@ import com.unir.back_end_library_books.service.BooksService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,4 +39,31 @@ public class BooksController {
             return ResponseEntity.ok(Collections.emptyList());
         }
     }
+
+    @GetMapping("/books/{id}")
+    public ResponseEntity<Book> getBook(@PathVariable String id) {
+        log.info("Request received for book {}", id);
+        Book book = service.getBook(id);
+
+        if (book != null) {
+            return ResponseEntity.ok(book);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/books/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable String id) {
+
+        Boolean removed = service.removeBook(id);
+
+        if (Boolean.TRUE.equals(removed)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    
+
 }
