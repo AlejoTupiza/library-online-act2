@@ -24,16 +24,17 @@ public class BooksController {
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getBooks(
             @RequestHeader Map<String, String> headers,
+            @RequestParam(required = false) Long isbn,
             @RequestParam(required = false) String title,
-            @RequestParam(required = false) String isbn,
-            @RequestParam(required = false) String author,
-            @RequestParam(required = false) String gender,
-            @RequestParam(required = false) Integer year_publication,
+            @RequestParam(required = false) Integer yearPublication,
             @RequestParam(required = false) Integer stock,
+            @RequestParam(required = false) String imgBook,
             @RequestParam(required = false) String synopsis,
-            @RequestParam(required = false) String criticism) {
+            @RequestParam(required = false) String criticism,
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) String gender) {
         log.info("headers: {}", headers);
-        List<Book> books = service.getBooks(title, isbn, author, gender, year_publication, stock, synopsis, criticism);
+        List<Book> books = service.getBooks(isbn, title, yearPublication, stock, imgBook, synopsis, criticism, author, gender);
 
         if (books != null) {
             return ResponseEntity.ok(books);

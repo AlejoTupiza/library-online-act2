@@ -45,4 +45,16 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "gender_id", nullable = false)
     private Gender gender;
+
+    public void update(BookDto bookDto) {
+        this.isbn = bookDto.getIsbn();
+        this.title = bookDto.getTitle();
+        this.yearPublication = bookDto.getYearPublication();
+        this.stock = bookDto.getStock();
+        this.imgBook = bookDto.getImgBook();
+        this.synopsis = bookDto.getSynopsis();
+        this.criticism = bookDto.getCriticism();
+        this.author = bookDto.getAuthor();
+        this.gender = bookDto.getGender();
+    }
 }

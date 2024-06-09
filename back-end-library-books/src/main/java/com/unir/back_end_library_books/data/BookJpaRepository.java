@@ -7,7 +7,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 interface BookJpaRepository extends JpaRepository<Book, Long>, JpaSpecificationExecutor<Book> {
+
+    List<Book> findByIsbn(Long isbn);
+
     List<Book> findByTitle(String title);
-//    List<Book> findByAuthor(String author);
-//    List<Book> findByGender(String gender);
+
+    List<Book> findByYearPublication(Integer yearPublication);
 }
