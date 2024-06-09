@@ -24,12 +24,12 @@ public class BookRepository {
 
     public void delete(Book book) { repository.delete(book); }
 
-    public List<Book> search(String isbn, String title, Integer yearPublication, Integer stock,
+    public List<Book> search(Long isbn, String title, Integer yearPublication, Integer stock,
                              String synopsis, String criticism, String author, String gender) {
         SearchCriteria<Book> spec = new SearchCriteria<>();
 
-        if (StringUtils.isNotBlank(isbn)) {
-            spec.add(new SearchStatement("isbn", isbn, SearchOperation.MATCH));
+        if (isbn != null) {
+            spec.add(new SearchStatement("isbn", isbn, SearchOperation.EQUAL));
         }
 
         if (StringUtils.isNotBlank(title)) {
@@ -49,7 +49,7 @@ public class BookRepository {
         }
 
         if (StringUtils.isNotBlank(criticism)) {
-            spec.add(new SearchStatement("criticism", criticism, SearchOperation.EQUAL));
+            spec.add(new SearchStatement("criticism", criticism, SearchOperation.MATCH));
         }
         return repository.findAll(spec);
     }

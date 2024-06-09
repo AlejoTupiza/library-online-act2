@@ -37,7 +37,7 @@ public class BooksServiceImpl implements BooksService {
         if (isbn !=null || StringUtils.hasLength(title) || yearPublication != null || stock != null ||
                 StringUtils.hasLength(imgBook) || StringUtils.hasLength(synopsis) || StringUtils.hasLength(criticism) ||
                 StringUtils.hasLength(author) || StringUtils.hasLength(gender)) {
-            return repository.search(String.valueOf(isbn), title, yearPublication, stock, synopsis, criticism, author, gender);
+            return repository.search(isbn, title, yearPublication, stock, synopsis, criticism, author, gender);
         }
 
         List<Book> books = repository.getBooks();
