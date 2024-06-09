@@ -140,7 +140,7 @@ public class AuthorController {
             description = "RFC 7386. Operacion de escritura",
             summary = "RFC 7386. Se modifica parcialmente un autor.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Datos del autor a crear.",
+                    description = "Datos del autor a modificar.",
                     required = true,
                     content = @Content(mediaType = "application/merge-patch+json", schema = @Schema(implementation = String.class))))
     @ApiResponse(
@@ -150,7 +150,7 @@ public class AuthorController {
             responseCode = "400",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
             description = "Autor inválido o datos incorrectos introducidos.")
-    public ResponseEntity<Author> patchProduct(@PathVariable String authorId, @RequestBody String patchBody) {
+    public ResponseEntity<Author> patchAuthor(@PathVariable String authorId, @RequestBody String patchBody) {
 
         Author patched = service.updateAuthor(authorId, patchBody);
         if (patched != null) {
@@ -177,9 +177,9 @@ public class AuthorController {
             responseCode = "404",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
             description = "Autor no encontrado.")
-    public ResponseEntity<Author> updateAuthor(@PathVariable String authortId, @RequestBody AuthorDto body) {
+    public ResponseEntity<Author> updateAuthor(@PathVariable String authorId, @RequestBody AuthorDto body) {
 
-        Author updated = service.updateAuthor(authortId, body);
+        Author updated = service.updateAuthor(authorId, body);
         if (updated != null) {
             return ResponseEntity.ok(updated);
         } else {
