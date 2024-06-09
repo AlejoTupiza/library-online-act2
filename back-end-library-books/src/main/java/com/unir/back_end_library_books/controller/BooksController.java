@@ -1,9 +1,11 @@
 package com.unir.back_end_library_books.controller;
 
 import com.unir.back_end_library_books.model.pojo.Book;
+import com.unir.back_end_library_books.model.request.CreateBookRequest;
 import com.unir.back_end_library_books.service.BooksService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,6 +66,27 @@ public class BooksController {
         }
     }
 
-    
+    @PostMapping("/books")
+    public ResponseEntity<Book> addBook(@RequestBody CreateBookRequest request) {
 
+        Book createdBook = service.createBook(request);
+
+        if (createdBook != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PatchMapping("/books/{id}")
+    public ResponseEntity<Book> patchBook(@PathVariable String id, @RequestBody String patchBody) {
+
+        Book patched = service.updateBook(id, patchBody);
+
+        if (patched != null) {
+            return ResponseEntity.ok(patched);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
