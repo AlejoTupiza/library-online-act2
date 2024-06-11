@@ -7,9 +7,11 @@ import com.github.fge.jsonpatch.JsonPatchException;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import com.unir.back_end_library_books.data.AuthorRepository;
 import com.unir.back_end_library_books.data.BookRepository;
+import com.unir.back_end_library_books.data.GenderRepository;
 import com.unir.back_end_library_books.model.pojo.Author;
 import com.unir.back_end_library_books.model.pojo.Book;
 import com.unir.back_end_library_books.model.pojo.BookDto;
+import com.unir.back_end_library_books.model.pojo.Gender;
 import com.unir.back_end_library_books.model.request.CreateBookRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class BooksServiceImpl implements BooksService {
 
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private GenderRepository genderRepository;
 
     @Override
     public List<Book> getBooks(Long isbn, String title, Integer yearPublication, Integer stock, String imgBook,
@@ -71,6 +75,7 @@ public class BooksServiceImpl implements BooksService {
                 request.getGender() != null) {
 
             Author author = authorRepository.getById(request.getAuthor().getId());
+            Gender gender = genderRepository.getById(request.getGender().getId());
 
             Book book = Book.builder()
                     .isbn(request.getIsbn())
@@ -81,7 +86,7 @@ public class BooksServiceImpl implements BooksService {
                     .synopsis(request.getSynopsis())
                     .criticism(request.getCriticism())
                     .author(author)
-                    .gender(request.getGender())
+                    .gender(gender)
                     .build();
             return repository.save(book);
         } else {
@@ -103,10 +108,10 @@ public class BooksServiceImpl implements BooksService {
                     patched.setAuthor(author);
                 }
 
-//                if (patched.getGender() != null && patched.getGender().getId() != null) {
-//                    Gender gender = genderRepository.getById(patched.getGender().getId());
-//                    patched.setGender(gender);
-//                }
+                if (patched.getGender() != null && patched.getGender().getId() != null) {
+                    Gender gender = genderRepository.getById(patched.getGender().getId());
+                    patched.setGender(gender);
+                }
 
                 repository.save(patched);
                 return patched;
@@ -131,10 +136,10 @@ public class BooksServiceImpl implements BooksService {
                 book.setAuthor(author);
             }
 
-//            if (updateRequest.getGender() != null && updateRequest.getGender().getId() != null) {
-//                Gender gender = genderRepository.getById(updateRequest.getGender().getId());
-//                book.setGender(gender);
-//            }
+            if (updateRequest.getGender() != null && updateRequest.getGender().getId() != null) {
+                Gender gender = genderRepository.getById(updateRequest.getGender().getId());
+                book.setGender(gender);
+            }
 
             repository.save(book);
             return book;
