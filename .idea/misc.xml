@@ -6,6 +6,8 @@
       <list>
         <option value="$PROJECT_DIR$/back-end-library-books/pom.xml" />
         <option value="$PROJECT_DIR$/back-end-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka/eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/gateway/pom.xml" />
       </list>
     </option>
   </component>
