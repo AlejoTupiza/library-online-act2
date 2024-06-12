@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 back-end-library-books/src/main/resources/application.yml
+.idea/compiler.xml
