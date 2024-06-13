@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/eureka/eureka/pom.xml" />
         <option value="$PROJECT_DIR$/back-end-cloud-gateway-filters/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/back-end-library-operator/back-end-library-operator/pom.xml" />
       </list>
     </option>
   </component>

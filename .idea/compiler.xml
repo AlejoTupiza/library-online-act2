@@ -8,6 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="back-end-library-books" />
+        <module name="library-online" />
+        <module name="back-end-library-operator" />
         <module name="gateway-filters" />
         <module name="gateway" />
         <module name="eureka" />
@@ -17,9 +19,11 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="back-end-library-books" options="-parameters" />
+      <module name="back-end-library-operator" options="-parameters" />
       <module name="eureka" options="-parameters" />
-      <module name="gateway-filters" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="gateway-filters" options="-parameters" />
+      <module name="library-online" options="-parameters" />
     </option>
   </component>
 </project>
