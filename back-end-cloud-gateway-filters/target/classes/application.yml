@@ -30,6 +30,10 @@ spring:
           uri: lb://ms-library-online
           predicates:
             - Path=/ms-library-online/**
+        - id: ms-library-operator-route
+          uri: lb://ms-library-operator
+          predicates:
+            - Path=/ms-library-operator/**
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors: ## CORS Configuration

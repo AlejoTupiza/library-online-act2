@@ -9,4 +9,6 @@ import java.util.List;
 public interface RentalService {
     RentalDto createRental(CreateRentalRequest request);
     List<RentalDto> getRentals();
+    RentalDto getRental(String id);
+
 }

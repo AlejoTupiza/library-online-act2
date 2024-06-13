@@ -62,6 +62,15 @@ public class RentalServiceImpl implements RentalService {
         }
         //return rentals.isEmpty() ? null : rentals;
     }
+
+    @Override
+    public RentalDto getRental(String id) {
+        Rental rental =repository.getRentalById(Long.valueOf(id));
+        if (rental != null)
+            return getRentalDto(rental);
+        return  null;
+    }
+
     private RentalDto getRentalDto(Rental x)
     {
         return RentalDto.builder()
