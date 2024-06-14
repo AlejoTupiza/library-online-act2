@@ -2,20 +2,22 @@ spring:
   application:
     name: ms-library-operator
   datasource:
-    url: jdbc:postgresql://localhost:5432/OperatorDB
-    username: postgres
-    password: Root
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:mysql://localhost:3306/OperatorDB
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     defer-datasource-initialization: true
+
 ## Configuración de instancia
 server:
-  port: 8090
-
+  port: 8082
+  error:
+    include-stacktrace: on_param
 
 ## Configuracion del cliente de Eureka
 eureka:
