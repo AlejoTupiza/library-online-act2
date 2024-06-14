@@ -12,12 +12,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,9 +29,14 @@ import java.util.List;
 public class RentalController {
     private final RentalService service;
     @GetMapping("/rentals")
-    public ResponseEntity<List<RentalDto>> getRentals()
+    public ResponseEntity<List<RentalDto>> getRentals(
+            @RequestHeader Map<String, String> headers,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.S")Date rentDate,
+            @RequestParam(required = false) Integer numberDay,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.S")Date returnDate
+    )
     {
-        List<RentalDto> rentals = service.getRentals();
+        List<RentalDto> rentals = service.getRentals(rentDate,numberDay,returnDate);
         if(rentals != null)
         {
             return ResponseEntity.ok(rentals);

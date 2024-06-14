@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -69,6 +71,18 @@ public class RentalServiceImpl implements RentalService {
         if (rental != null)
             return getRentalDto(rental);
         return  null;
+    }
+
+    @Override
+    public List<RentalDto> getRentals(Date rentDate, Integer numberDay, Date returnDate) {
+
+        List<Rental> rentals = repository.getRentals(rentDate,numberDay,returnDate);
+        if(!rentals.isEmpty())
+        {
+            return rentals.stream().map(this::getRentalDto).collect(Collectors.toList());
+        }else{
+            return null;
+        }
     }
 
     private RentalDto getRentalDto(Rental x)

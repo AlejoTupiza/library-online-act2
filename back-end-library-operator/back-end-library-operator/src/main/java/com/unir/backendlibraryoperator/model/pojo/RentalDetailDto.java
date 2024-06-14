@@ -15,6 +15,5 @@ public class RentalDetailDto {
     private Integer numberDay;
     private String returnDate;
     private Long bookId;
-    private String bookName;
     private Integer amount;
 }
