@@ -37,7 +37,7 @@ public class BookRepository {
         }
 
         if (yearPublication != null) {
-            spec.add(new SearchStatement("year_publication", yearPublication, SearchOperation.EQUAL));
+            spec.add(new SearchStatement("yearPublication", yearPublication, SearchOperation.EQUAL));
         }
 
         if (stock != null) {
@@ -50,6 +50,14 @@ public class BookRepository {
 
         if (StringUtils.isNotBlank(criticism)) {
             spec.add(new SearchStatement("criticism", criticism, SearchOperation.MATCH));
+        }
+
+        if (StringUtils.isNotBlank(author)) {
+            spec.add(new SearchStatement("author.name", author, SearchOperation.MATCH));
+        }
+
+        if (StringUtils.isNotBlank(gender)) {
+            spec.add(new SearchStatement("gender.name", gender, SearchOperation.MATCH));
         }
         return repository.findAll(spec);
     }
