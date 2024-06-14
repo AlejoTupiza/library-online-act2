@@ -28,7 +28,7 @@ public class GendersController {
 
     private final GendersService service;
 
-    @GetMapping("/Genders")
+    @GetMapping("/genders")
     @Operation(
             operationId = "Obtener Genderos",
             description = "Operacion de lectura",
